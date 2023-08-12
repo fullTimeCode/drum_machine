@@ -1,32 +1,42 @@
 import { useState } from 'react'
-import { PowerSwitch } from './components'
+import { ToggleSwitch } from './components'
+import { FaCircleDot } from 'react-icons/fa6'
 
 function App() {
   const [display, setDisplay] = useState('')
   const [currentSound, setCurrentSound] = useState('')
+  const [powerStatus, setPowerStatus] = useState(false)
 
   const baseSRC = `https://s3.amazonaws.com/freecodecamp/drums/`
-  const getSound = (sound: string): string => baseSRC + sound
+  const getSound = (sound: string): string => baseSRC + sound + '.mp3'
 
   const drumKeys = [
-    { drumKey: 'Q', sound: 'Heater-1.mp3' },
-    { drumKey: 'W', sound: 'Heater-2.mp3' },
-    { drumKey: 'E', sound: 'Heater-3.mp3' },
-    { drumKey: 'A', sound: 'Heater-4_1.mp3' },
-    { drumKey: 'S', sound: 'Heater-6.mp3' },
-    { drumKey: 'D', sound: 'Dsc_Oh.mp3' },
-    { drumKey: 'Z', sound: 'Kick_n_Hat.mp3' },
-    { drumKey: 'X', sound: 'RP4_KICK_1.mp3' },
-    { drumKey: 'C', sound: 'Cev_H2.mp3' },
+    { drumKey: 'Q', sound: 'Heater-1' },
+    { drumKey: 'W', sound: 'Heater-2' },
+    { drumKey: 'E', sound: 'Heater-3' },
+    { drumKey: 'A', sound: 'Heater-4_1' },
+    { drumKey: 'S', sound: 'Heater-6' },
+    { drumKey: 'D', sound: 'Dsc_Oh' },
+    { drumKey: 'Z', sound: 'Kick_n_Hat' },
+    { drumKey: 'X', sound: 'RP4_KICK_1' },
+    { drumKey: 'C', sound: 'Cev_H2' },
   ]
 
-  const handleClick = (id: string) => {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const id = e.currentTarget.id
+    const audioElem = e.currentTarget.children[1] as HTMLAudioElement
+    console.log(audioElem)
+    audioElem.play()
+
     const { sound } = drumKeys.filter(({ drumKey }) => drumKey === id)[0]
     setCurrentSound(sound)
 
-    const audio = new Audio(getSound(currentSound))
-    setDisplay(currentSound.split('.')[0])
-    audio.play()
+    setDisplay(currentSound)
+  }
+  const handleSwitchToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('target: ', e.target)
+    console.log('current target: ', e.currentTarget)
+    setPowerStatus((prevStatus) => !prevStatus)
   }
 
   return (
@@ -35,12 +45,17 @@ function App() {
         <div
           className=''
           id=''>
-          brand name
+          brand name:
+          {powerStatus ? <FaCircleDot fill={'orangered'} /> : <FaCircleDot fill={'black'} />}
         </div>
         <div
           className=''
           id='power'>
-          <PowerSwitch styleNames='' />
+          <ToggleSwitch
+            styleNames=''
+            switchStatus={powerStatus}
+            handleToggle={handleSwitchToggle}
+          />
         </div>
         <div
           className=''
@@ -59,14 +74,17 @@ function App() {
         </div>
       </section>
       <section className='pad-container'>
-        {drumKeys.map(({ drumKey, sound }) => (
+        {drumKeys.map(({ drumKey, sound }, idx) => (
           <button
-            onClick={(e) => handleClick(e.currentTarget.id)}
+            onClick={(e) => handleClick(e)}
             className='drum-pad'
-            key={drumKey}
+            key={idx}
             id={drumKey}>
             <p> {drumKey} </p>
-            <audio src={getSound(sound)}></audio>
+            <audio
+              className='clip'
+              id={drumKey}
+              src={getSound(sound)}></audio>
           </button>
         ))}
       </section>
