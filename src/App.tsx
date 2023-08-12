@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { PowerSwitch } from './components'
 
 function App() {
   const [display, setDisplay] = useState('')
@@ -39,11 +40,7 @@ function App() {
         <div
           className=''
           id='power'>
-          <button
-            id='power-btn'
-            type='button'>
-            Power Toggle
-          </button>
+          <PowerSwitch styleNames='' />
         </div>
         <div
           className=''
