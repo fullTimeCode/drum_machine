@@ -25,7 +25,7 @@ function App() {
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const id = e.currentTarget.id
     const audioElem = e.currentTarget.children[1] as HTMLAudioElement
-    console.log(audioElem)
+    // console.log(audioElem)
     audioElem.play()
 
     const { sound } = drumKeys.filter(({ drumKey }) => drumKey === id)[0]
@@ -34,9 +34,10 @@ function App() {
     setDisplay(currentSound)
   }
   const handleSwitchToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('target: ', e.target)
-    console.log('current target: ', e.currentTarget)
+    // console.log('target: ', e.target)
+    // console.log('current target: ', e.currentTarget)
     setPowerStatus((prevStatus) => !prevStatus)
+    e  
   }
 
   return (
