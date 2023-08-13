@@ -11,15 +11,15 @@ function App() {
   const getSound = (sound: string): string => baseSRC + sound + '.mp3'
 
   const drumKeys = [
-    { drumKey: 'Q', sound: 'Heater-1' },
-    { drumKey: 'W', sound: 'Heater-2' },
-    { drumKey: 'E', sound: 'Heater-3' },
-    { drumKey: 'A', sound: 'Heater-4_1' },
-    { drumKey: 'S', sound: 'Heater-6' },
-    { drumKey: 'D', sound: 'Dsc_Oh' },
-    { drumKey: 'Z', sound: 'Kick_n_Hat' },
-    { drumKey: 'X', sound: 'RP4_KICK_1' },
-    { drumKey: 'C', sound: 'Cev_H2' },
+    { drumKey: 'Q', sound: 'Heater-1', triggerKey: 'Heater 1' },
+    { drumKey: 'W', sound: 'Heater-2', triggerKey: 'Heater 2' },
+    { drumKey: 'E', sound: 'Heater-3', triggerKey: 'Heater 3' },
+    { drumKey: 'A', sound: 'Heater-4_1', triggerKey: 'Heater 4' },
+    { drumKey: 'S', sound: 'Heater-6', triggerKey: 'Clap' },
+    { drumKey: 'D', sound: 'Dsc_Oh', triggerKey: 'Open-HH' },
+    { drumKey: 'Z', sound: 'Kick_n_Hat', triggerKey: "Kick-n'-Hat" },
+    { drumKey: 'X', sound: 'RP4_KICK_1', triggerKey: 'Kick' },
+    { drumKey: 'C', sound: 'Cev_H2', triggerKey: 'Closed-HH' },
   ]
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -37,7 +37,7 @@ function App() {
     // console.log('target: ', e.target)
     // console.log('current target: ', e.currentTarget)
     setPowerStatus((prevStatus) => !prevStatus)
-    e  
+    e
   }
 
   return (
