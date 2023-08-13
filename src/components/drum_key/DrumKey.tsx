@@ -5,15 +5,22 @@ import PropTypes from 'prop-types'
 type drumKeyProps = {
   styleNames: string
   drumKey: string
+  source: string
+  handleClick: CallableFunction
 }
 
-const DrumKey = ({ styleNames, drumKey }: drumKeyProps) => {
+const DrumKey = ({ styleNames, drumKey, handleClick, source }: drumKeyProps) => {
   return (
-    <div
+    <button
+      onClick={(e) => handleClick(e)}
       className={`drum-pad ${styleNames}`}
       id={drumKey}>
-      {drumKey}
-    </div>
+      <p> {drumKey} </p>
+      <audio
+        className='clip'
+        id={drumKey}
+        src={source}></audio>
+    </button>
   )
 }
 
