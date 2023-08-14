@@ -1,23 +1,41 @@
-import './key_pad.scss'
+import React from 'react'
 import PropTypes from 'prop-types'
-// you may need to install `yarn add prop-types`
+import { DrumKey } from '..'
+import './key_pad.scss'
 
-type keyPadProps = {
-	styleNames: string,
+type DrumKeyType = {
+  drumKey: string
+  sound: string
+  idx?: number
 }
 
-const KeyPad = ( { styleNames } : keyPadProps ) => {
-	return (
-		<div className={`key_pad ${styleNames}`}>
-			<h2>KeyPad</h2>
-			{/* add your code here  */}
+type KeyPadProps = {
+  styleNames: string
+  drumKeys: DrumKeyType[]
+  handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void
+  getSound: (sound: string) => string
+}
 
-		</div>
-	)
+const KeyPad: React.FC<KeyPadProps> = ({ styleNames, drumKeys, getSound, handleClick }) => {
+  return (
+    <div>
+      <section className={`pad-container key_pad ${styleNames}`}>
+        {drumKeys.map(({ drumKey, sound, idx }) => (
+          <DrumKey
+            key={idx}
+            drumKey={drumKey}
+            handleClick={handleClick}
+            source={getSound(sound)}
+            styleNames={''} // You can set appropriate styles here
+          />
+        ))}
+      </section>
+    </div>
+  )
 }
 
 KeyPad.propTypes = {
-	styleNames: PropTypes.string.isRequired
+  styleNames: PropTypes.string.isRequired,
 }
 
 export default KeyPad

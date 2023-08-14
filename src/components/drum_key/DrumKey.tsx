@@ -1,15 +1,14 @@
 import './drum_key.scss'
 import PropTypes from 'prop-types'
-// you may need to install `yarn add prop-types`
 
-type drumKeyProps = {
-  styleNames: string
+type DrumKeyProps = {
+  styleNames?: string
   drumKey: string
   source: string
-  handleClick: CallableFunction
+  handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
-const DrumKey = ({ styleNames, drumKey, handleClick, source }: drumKeyProps) => {
+const DrumKey = ({ styleNames, drumKey, handleClick, source }: DrumKeyProps) => {
   return (
     <button
       onClick={(e) => handleClick(e)}
